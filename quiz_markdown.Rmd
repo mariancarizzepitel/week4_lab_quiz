@@ -1,0 +1,63 @@
+---
+title: '6060 Week 4 Lab Quiz: RMarkdown'
+author: "Marian Pitel"
+output:
+  pdf_document:
+    number_sections: yes
+    toc_depth: 3
+  html_document:
+    toc_depth: '3'
+---
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE}
+# Code goes in blocks like this
+
+# load libraries
+library(tidyverse)
+library(apaTables)
+
+#Load data 
+analytic_data_no.gender <- read_csv("analytic_data_no.gender.csv")
+analytic_data_over.40 <- read_csv("analytic_data_over.40.csv")
+
+```
+
+# Correlation table 1
+
+Below are the correlations among the variables (neuroticism, agreeableness, extraversion,neuroticism, education, and age).
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+apa.cor.table(analytic_data_no.gender,filename="Table1.doc",table.number=1)
+       
+```
+
+\pagebreak
+
+# Correlation table 2
+
+Below are the correlations among the variables (neuroticism, agreeableness, extraversion,neuroticism, education, and age) for only men over the age of 40. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+apa.cor.table(analytic_data_over.40,filename="Table2.doc",table.number=2)
+```
+
+\pagebreak
+
+#Scatterplot of the relation between agreeableness and extraversion for men over the age of 40. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+my.plot.agree.extra <- qplot(agreeableness,extraversion,data=analytic_data_over.40)
+my.plot.agree.extra <- my.plot.agree.extra + geom_smooth(method = "lm", se = FALSE, color='black')
+my.plot.agree.extra <- my.plot.agree.extra + theme_classic()
+my.plot.agree.extra <- my.plot.agree.extra + theme(axis.line.x = element_line(colour='black',size=0.5,linetype='solid'),axis.line.y = element_line(colour='black',size=0.5,linetype='solid'))
+my.plot.agree.extra <- my.plot.agree.extra + labs(title="",x="Agreeableness",y="Extraversion")
+my.plot.agree.extra <- my.plot.agree.extra + coord_cartesian(xlim=c(0,6),ylim=c(0,6))
+print(my.plot.agree.extra)
+```
+
+\pagebreak
+
+#APA sentence describing correlation and CI for the relation between agreeableness and extraversion for men over the age of 40. 
+
+In our single study, we found a positive correlation between scores on agreeableness and extraversion for men over the age of 40, r=.43, 95%CI [.35,.50], p<.01. Despite the low (statistically sagnificant) p-value obtained, further research is needed in order to confidently conclude that a strong and positive correlation between agreeableness and extraversion truly exists for men over the age of 40. 
