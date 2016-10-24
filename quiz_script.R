@@ -39,7 +39,7 @@ analytic_data_no.gender <- select(analytic_data, -gender)
 apa.cor.table(analytic_data_no.gender,filename="Table1.doc",table.number=1)
 
 #No.2: Correlation table - only on men over 40 
-analytic_data_over.40 <- filter(analytic_data, age>40) 
+analytic_data_over.40 <- filter(analytic_data, gender=="Males" & age>40) 
 analytic_data_over.40 <- select(analytic_data_over.40, -gender)
 apa.cor.table(analytic_data_over.40,filename="Table2.doc",table.number=2)
 
